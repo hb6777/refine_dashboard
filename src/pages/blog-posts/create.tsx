@@ -1,7 +1,7 @@
 import { Create, useForm, useSelect } from "@refinedev/antd";
 import MDEditor from "@uiw/react-md-editor";
 import { Form, Input, Select } from "antd";
-import { CATEGORIES_SELECT_QUERY, POST_CREATE_MUTATION } from "./queries";
+import { CATEGORIES_SELECT_QUERY, POST_CREATE_MUTATION } from "../../graphql/queries";
 
 export const BlogPostCreate = () => {
   const { formProps, saveButtonProps } = useForm({
