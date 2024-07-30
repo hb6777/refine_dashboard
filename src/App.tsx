@@ -17,7 +17,7 @@ import { Home, Login, Register, ForgotPassword } from "./pages";
 
 
   import  Layout   from "./components/layout";
-// import { resources } from "@/config/resources";
+  import { resources } from "./config/resources";
 
 // import {
 //   CompanyCreatePage,
@@ -44,7 +44,7 @@ const App = () => {
               liveProvider={liveProvider}
               notificationProvider={useNotificationProvider}
               authProvider={authProvider}
-             // resources={resources}
+              resources={resources}
               options={{
                 syncWithLocation: true,
                 warnWhenUnsavedChanges: true,

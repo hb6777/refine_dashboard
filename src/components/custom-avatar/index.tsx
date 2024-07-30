@@ -23,7 +23,7 @@ const CustomAvatarComponent = ({ name = "", style, ...rest }: Props) => {
         border: "none",
         ...style,
       }}
-      {...rest}
+    //{...rest}
     >
       {getNameInitials(name)}
     </AntdAvatar>
