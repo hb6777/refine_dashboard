@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
+    "@ant-design/plots": "^1.2.5",
     "@dnd-kit/core": "^6.1.0",
     "@refinedev/antd": "^5.42.0",
     "@refinedev/cli": "^2.16.36",
