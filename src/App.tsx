@@ -13,11 +13,11 @@ import routerProvider, {
 import { App as AntdApp, ConfigProvider } from "antd"; //, Layout
 import { authProvider, dataProvider, liveProvider } from "./providers";
 
-import { Home, Login, Register, ForgotPassword } from "./pages";
+import { Home, Login, Register, ForgotPassword,  CompanyList } from "./pages";
 
 
-  import  Layout   from "./components/layout";
-  import { resources } from "./config/resources";
+import Layout from "./components/layout";
+import { resources } from "./config/resources";
 
 // import {
 //   CompanyCreatePage,
@@ -30,7 +30,7 @@ import { Home, Login, Register, ForgotPassword } from "./pages";
 //   TasksListPage,
 // } from "./routes";
 
-import "@refinedev/antd/dist/reset.css";
+import "@refinedev/antd/dist/reset.css"; 
 
 const App = () => {
   return (
@@ -53,30 +53,31 @@ const App = () => {
               }}
             >
               <Routes>
-                
-                  {/* <Route index element={<WelcomePage />} /> */}
-                  <Route path="/register" index element={<Register />} />
-                  <Route path="/login" index element={<Login />} />
-                  <Route path="/forgotPassword" index element={<ForgotPassword />} />
- 
-                 <Route
-                    element={
-                      <Authenticated
-                        key="authenticated-layout"
-                        fallback={<CatchAllNavigate to="/login" />}
-                      >
-                        <Layout>
-                          <Outlet />
-                        </Layout>
-                      </Authenticated>
-                    }
-                 >
 
-                    <Route index element={<Home />} />
+                {/* <Route index element={<WelcomePage />} /> */}
+                <Route path="/register" index element={<Register />} />
+                <Route path="/login" index element={<Login />} />
+                <Route path="/forgotPassword" index element={<ForgotPassword />} />
 
-                  </Route>
+                <Route
+                  element={
+                    <Authenticated
+                      key="authenticated-layout"
+                      fallback={<CatchAllNavigate to="/login" />}
+                    >
+                      <Layout>
+                        <Outlet />
+                      </Layout>
+                    </Authenticated>
+                  }
+                >
 
-{/* 
+                  <Route index element={<Home />} />
+                  <Route path="/companies" element={<CompanyList />} />
+
+                </Route>
+
+                {/* 
                   <Route index element={<DashboardPage />} /> 
 
                   <Route
