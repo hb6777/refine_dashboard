@@ -9,7 +9,7 @@ import { getDefaultFilter, useGo } from '@refinedev/core'
 import { Input, Space, Table } from 'antd';
 import React from 'react'
 
-export const CompanyList = () => {
+export const CompanyList = ({children}:React.PropsWithChildren) => {
 
   const {tableProps, filters} = useTable({
     resource:'companies',
@@ -17,10 +17,10 @@ export const CompanyList = () => {
         return [{
           field:'name',
           operator: 'contains',
-          value: values.name
+          value: values.name,
         }]
     },
-    pagination:{pageSize:3},
+    pagination:{pageSize:12},
     sorters: {
       initial:[{
         field: 'createdAt',
@@ -42,6 +42,7 @@ export const CompanyList = () => {
   const go = useGo();
 
   return (
+    <div>
     <List
       breadcrumb={false}
       headerButtons={() => (
@@ -117,5 +118,7 @@ export const CompanyList = () => {
           
       </Table>
     </List>
+            {children}
+    </div>
   )
 }

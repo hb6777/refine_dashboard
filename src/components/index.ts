@@ -7,7 +7,7 @@ import LatestActivitiesSkeleton from "./skeleton/latest-activities";
 import ProjectCardSkeleton from "./skeleton/project-card";
 import DashboardTotalCountCard from './home/total-count-card'
 import LatestActivities from "./home/latest-activities";
-
+import SelectOptionWithAvatar from "./select-option-avatar";
 
 export {UpcomingEvents, 
     DealsChart,
@@ -17,5 +17,6 @@ export {UpcomingEvents,
     LatestActivitiesSkeleton,
     ProjectCardSkeleton,
     DashboardTotalCountCard,
-    LatestActivities 
+    LatestActivities,
+    SelectOptionWithAvatar 
 };
