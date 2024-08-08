@@ -1,10 +1,14 @@
+import CustomAvatar from '@/components/custom-avatar'
 import { Text } from '@/components/text'
+import { TextIcon } from '@/components/text-icon'
 import { User } from '@/graphql/schema.types'
-import { DeleteOutlined, EyeOutlined, MoreOutlined } from '@ant-design/icons'
-import { Button, Card, ConfigProvider, Dropdown, theme, Tooltip } from 'antd'
+import { getDateColor } from '@/utilities'
+import { ClockCircleOutlined, DeleteOutlined, EyeOutlined, MoreOutlined } from '@ant-design/icons'
+import {  Button, Card, ConfigProvider, Dropdown, Space, Tag, theme, Tooltip } from 'antd'
 import { MenuProps } from 'antd/lib'
 import tooltip from 'antd/lib/tooltip'
-import React, { useMemo } from 'react'
+import dayjs from 'dayjs'
+import React, { memo, useMemo } from 'react'
 
 type ProjectCardProps ={
     id: string,
@@ -15,13 +19,11 @@ type ProjectCardProps ={
         id:string,
         name:string,
         avatarUrl?: User['avatarUrl']
-    }[]  
+    }[]   
 }
-
- const {token} = theme.useToken();
-
-const edit = () => {}
-
+ 
+const ProjectCard = ({id, title, dueDate, users}: ProjectCardProps) => {
+  
 const dropdownItems = useMemo(()=>{
     const dropdownItems: MenuProps['items'] = [
         {
@@ -42,12 +44,27 @@ const dropdownItems = useMemo(()=>{
     ]
 
     return dropdownItems
-},[])
+},[]) 
+  
+const {token} = theme.useToken(); 
+
+const edit = () => {}
+
+const dueDateOptions = useMemo(()=> {
+    if(!dueDate) return null;
+
+    const date = dayjs(dueDate);
+
+    return {
+        color: getDateColor({date: dueDate}) as string,
+        text: date.format('MMM DD')
+    }
+
+},[dueDate]);
 
 
-const ProjectCard = ({id, title, dueDate, users}: ProjectCardProps) => {
-  return (
-    //<div>{title}</div>
+    return (
+   
     <ConfigProvider
         theme={{
             components:{
@@ -66,10 +83,12 @@ const ProjectCard = ({id, title, dueDate, users}: ProjectCardProps) => {
             onClick={()=>edit()}
             extra={
                 <Dropdown
-                    trigger={['click']}
+                    trigger={["click"]}
                     menu={{
                         items: dropdownItems,
                     }}
+                    placement='bottom'
+                    arrow={{pointAtCenter: true}} 
                 >
                     <Button 
                         type="text"
@@ -78,12 +97,61 @@ const ProjectCard = ({id, title, dueDate, users}: ProjectCardProps) => {
                             style={{
                                 transform:('rotate(90deg)')
                             }}
-                        />}
-                        
+                        />} 
+                        onPointerDown={(e)=>{e.stopPropagation()}}
+                        onClick={(e)=>{e.stopPropagation()}}
                     />
                 </Dropdown>
             }
-        >
+        > 
+
+        <div style={{
+            display:'flex',
+            flexWrap: 'wrap',
+            alignItems:'center',
+            gap:'8px'
+        }}>
+            <TextIcon style={{marginRight: '4px'}} />
+
+            {dueDateOptions && (
+                <Tag 
+                    icon={<ClockCircleOutlined style={{fontSize:'12px'}} />}
+                    style={{
+                        padding: '0 4px',
+                        marginInlineEnd: '0',
+                        backgroundColor: dueDateOptions.color === 'default' ? 'transparent' : 'unset',
+                      }}
+                      color= {dueDateOptions.color}  
+                      bordered={dueDateOptions.color !== 'default'}
+                >
+                    {dueDateOptions.text}
+                </Tag>
+            )}
+
+            {!!users?.length  && (
+                <Space
+                    size={4}
+                    wrap
+                    direction='horizontal'
+                    align="center"
+                    style={{
+                        display:'flex',
+                        justifyContent: 'flex-end',
+                        marginLeft: 'auto',
+                        marginRight: '0',
+                    }}
+                    
+                >
+                    {users.map((user)=> (
+                        <Tooltip key={user.id} title={user.name}>
+                            <CustomAvatar name={user.name} src={user.avatarUrl} />
+                        </Tooltip>
+                    ))}
+                </Space>
+            )}
+
+
+        </div> 
 
         </Card>
        
@@ -92,3 +160,13 @@ const ProjectCard = ({id, title, dueDate, users}: ProjectCardProps) => {
 }
 
 export default ProjectCard
+
+export const ProjectCardMemo = memo(ProjectCard, (prev, next) => {
+    return(
+        prev.id===next.id &&
+        prev.title===next.title &&
+        prev.updatedAt===next.updatedAt &&
+        prev.dueDate===next.dueDate &&
+        prev.users?.length===next.users?.length
+    )
+})

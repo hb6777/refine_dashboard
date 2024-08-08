@@ -56,8 +56,8 @@ const KanbanColumn = ({children, id, title, description, count, data,onAddClick}
       <div
         style={{
           flex:1,
-          overflowY: active ? 'unset' : 'scroll',
-          border: '2px dashed red',
+          overflowY: active ? 'unset' : 'auto',
+          border: '2px dashed transparent',
           borderColor: over ? '#000040' : 'transparent',
           borderRadius: '4px'
         }}  
