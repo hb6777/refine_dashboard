@@ -198,7 +198,7 @@ export const TASK_STAGES_QUERY = gql`
       totalCount # Get the total count of task stages
       nodes {
         id
-        title
+        title 
       }
     }
   }

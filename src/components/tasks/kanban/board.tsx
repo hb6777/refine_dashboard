@@ -33,13 +33,13 @@ export const KanbanBoard = ({ children, onDragEnd }: React.PropsWithChildren<Pro
 
     const mouseSensor = useSensor(MouseSensor, {
         activationConstraint: {
-            distance: 5,
+            distance: 3,
         } 
     })
 
     const touchSensor = useSensor(TouchSensor, {
         activationConstraint: {
-            distance: 5,
+            distance: 3,
         } 
     })
 

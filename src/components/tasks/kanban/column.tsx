@@ -1,6 +1,6 @@
 import { Text } from '@/components/text'
 import { PlusOutlined } from '@ant-design/icons'
-import { useDraggable, UseDroppableArguments } from '@dnd-kit/core'
+import { useDraggable, useDroppable, UseDroppableArguments } from '@dnd-kit/core'
 import { Badge, Button, Space, Tooltip } from 'antd'
 import React from 'react'
  
@@ -15,8 +15,8 @@ type Props = {
 
 const KanbanColumn = ({children, id, title, description, count, data,onAddClick}: React.PropsWithChildren<Props>) => {
 
-  const { over, setNodeRef, active } = useDraggable({ id , data })
-    
+  const { isOver, setNodeRef, active } = useDroppable({id, data});  
+  
   const onAddHandler = () => { onAddClick?.({id}) }
 
   return (
@@ -58,7 +58,7 @@ const KanbanColumn = ({children, id, title, description, count, data,onAddClick}
           flex:1,
           overflowY: active ? 'unset' : 'auto',
           border: '2px dashed transparent',
-          borderColor: over ? '#000040' : 'transparent',
+          borderColor: isOver  ? '#000040' : 'transparent',
           borderRadius: '4px'
         }}  
       >

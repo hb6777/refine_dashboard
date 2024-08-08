@@ -50,6 +50,8 @@ const TasksList = ({children}: React.PropsWithChildren) => {
         }
     })
 
+    const {mutate:updateTask} = useUpdate();
+
     const taskStages = React.useMemo(() => {
         if (!tasks?.data || !stages?.data) {
             return {
@@ -58,7 +60,7 @@ const TasksList = ({children}: React.PropsWithChildren) => {
             }
         }
 
-        const unassignedStage = tasks.data.filter((task) => task.stageId === null)
+        const unassignedStage = tasks.data.filter((task) => task.stageId === null);
 
         const grouped: TaskStage[] = stages.data.map((stage) => ({
             ...stage,
@@ -74,13 +76,7 @@ const TasksList = ({children}: React.PropsWithChildren) => {
 
 
     const handleAddCard = (args: { stageId: string }) => { }
-
-    const isLoading = isLoadingStage || isLoadingTask
-
-    if (isLoading) return <PageSkeleton />
-
-    const {mutate:updateTask} = useUpdate();
-
+ 
     const handleOnDragEnd = (event:DragEndEvent) => {
         let stageId = event.over?.id as undefined | string | null
         const taskId = event.active.id as string
@@ -88,9 +84,11 @@ const TasksList = ({children}: React.PropsWithChildren) => {
 
         if (taskStageId === stageId) return;
 
-        if (stageId === "unassigned") {
+        if (stageId === 'unassigned') {
             stageId = null
         } 
+
+//  console.log('event=', event);
 
         updateTask({
             resource:'tasks',
@@ -105,6 +103,11 @@ const TasksList = ({children}: React.PropsWithChildren) => {
             } 
         })
     }
+    
+    const isLoading = isLoadingStage || isLoadingTask
+
+    if (isLoading) return <PageSkeleton />
+
 
     // console.log(tasks);
     

@@ -4,6 +4,7 @@ import { TextIcon } from '@/components/text-icon'
 import { User } from '@/graphql/schema.types'
 import { getDateColor } from '@/utilities'
 import { ClockCircleOutlined, DeleteOutlined, EyeOutlined, MoreOutlined } from '@ant-design/icons'
+import { useDelete, useNavigation } from '@refinedev/core'
 import {  Button, Card, ConfigProvider, Dropdown, Space, Tag, theme, Tooltip } from 'antd'
 import { MenuProps } from 'antd/lib'
 import tooltip from 'antd/lib/tooltip'
@@ -31,7 +32,7 @@ const dropdownItems = useMemo(()=>{
             key: '1',
             icon: <EyeOutlined />,
             onClick: () => {
-                edit();
+                edit('tasks',id,'replace');
             }
         },
         {
@@ -39,7 +40,15 @@ const dropdownItems = useMemo(()=>{
             label: 'Delete Card',
             key: '2',
             icon: <DeleteOutlined />,
-            onClick: ()=> {}
+            onClick: ()=> {
+                deleteTask({
+                    resource:'tasks',
+                    id,
+                    meta:{
+                        operation: 'task'
+                    }
+                })
+            }
         }, 
     ]
 
@@ -48,8 +57,9 @@ const dropdownItems = useMemo(()=>{
   
 const {token} = theme.useToken(); 
 
-const edit = () => {}
-
+const {edit} = useNavigation();
+const {mutate: deleteTask} = useDelete();
+ 
 const dueDateOptions = useMemo(()=> {
     if(!dueDate) return null;
 
