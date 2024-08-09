@@ -13,7 +13,7 @@ import routerProvider, {
 import { App as AntdApp, ConfigProvider } from "antd";
 import { authProvider, dataProvider, liveProvider } from "./providers";
 
-import { Home, Login, Register, ForgotPassword, CompanyList, CreateCompany, EditCompany }
+import { Home,  Login, Register, ForgotPassword, CompanyList, CreateCompany, EditCompany }
   from "./pages";
 
 
@@ -31,8 +31,10 @@ import { resources } from "./config/resources";
 //   TasksListPage,
 // } from "./routes";
 
-import "@refinedev/antd/dist/reset.css";
+import "@refinedev/antd/dist/reset.css"; 
 import TasksList from "./pages/tasks/list";
+import CreateTask from "./pages/tasks/create";
+import EditTask from "./pages/tasks/edit";
 
 const App = () => {
   return (
@@ -81,49 +83,16 @@ const App = () => {
                     <Route path="new" element={<CreateCompany />} />
                     <Route path="edit/:id" element={<EditCompany />} />
                   </Route>
- 
-                  <Route path="/tasks">
-                    <Route index element={<TasksList />} />
-                    <Route path="" />
+
+                  <Route path="/tasks" element={
+                    <TasksList>
+                      <Outlet />
+                    </TasksList>
+                  }>
+                      <Route path="new" element={<CreateTask />} />
+                      <Route path="edit/:id" element={<EditTask />} /> 
                   </Route>
-         </Route>
-         
-                {/* 
-                  <Route index element={<DashboardPage />} /> 
-
-                  <Route
-                    path="/tasks"
-                    element={
-                      <TasksListPage>
-                        <Outlet />
-                      </TasksListPage>
-                    }
-                  >
-                    <Route path="new" element={<TasksCreatePage />} />
-                    <Route path="edit/:id" element={<TasksEditPage />} />
-                  </Route>
-
-                  <Route path="/companies">
-                    <Route index element={<CompanyListPage />} />
-                    <Route path="new" element={<CompanyCreatePage />} />
-                    <Route path="edit/:id" element={<CompanyEditPage />} />
-                  </Route>
-
-                  <Route path="*" element={<ErrorComponent />} />
-                </Route>
-
-                <Route
-                  element={
-                    <Authenticated
-                      key="authenticated-auth"
-                      fallback={<Outlet />}
-                    >
-                      <NavigateToResource resource="dashboard" />
-                    </Authenticated>
-                  }
-                >
-                  <Route path="/login" element={<LoginPage />} />
-                </Route>  */}
+                </Route> 
               </Routes>
               <UnsavedChangesNotifier />
               <DocumentTitleHandler />

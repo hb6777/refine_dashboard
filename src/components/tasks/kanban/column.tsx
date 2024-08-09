@@ -17,7 +17,7 @@ const KanbanColumn = ({children, id, title, description, count, data,onAddClick}
 
   const { isOver, setNodeRef, active } = useDroppable({id, data});  
   
-  const onAddHandler = () => { onAddClick?.({id}) }
+  const onAddClickHandler = () => { onAddClick?.({id}) }
 
   return (
     <div 
@@ -48,7 +48,7 @@ const KanbanColumn = ({children, id, title, description, count, data,onAddClick}
 
                   {!!count && <Badge count={count} color="cyan"  />}  
               </Space>
-              <Button onClick={onAddHandler} icon={<PlusOutlined />} shape="circle" size="small" />
+              <Button onClick={onAddClickHandler} icon={<PlusOutlined />} shape="circle" size="small" />
           </Space>
           {description}
       </div>

@@ -12,10 +12,13 @@ import { Column } from '@ant-design/plots'
 import { DragEndEvent } from '@dnd-kit/core'
 import { useList, useUpdate } from '@refinedev/core'
 import { GetFieldsFromList } from '@refinedev/nestjs-query'
-import React from 'react'
+import React from 'react' 
+import { useNavigation } from '@refinedev/core'
 
-const TasksList = ({children}: React.PropsWithChildren) => {
-
+ const TasksList = ({children}: React.PropsWithChildren) => {
+ 
+    const {  replace }  = useNavigation();
+    
     const { data: stages, isLoading: isLoadingStage } = useList<TaskStage>({
         resource: 'taskStages',
         filters: [
@@ -73,9 +76,15 @@ const TasksList = ({children}: React.PropsWithChildren) => {
         }
 
     }, [stages, tasks])
+ 
+    const handleAddCard = (args: { stageId: string }) => { 
+        
+        const path = (args.stageId === 'unassigned' ? 
+        '/tasks/new'
+        : `/tasks/new?stageId=${args.stageId}`)
 
-
-    const handleAddCard = (args: { stageId: string }) => { }
+        replace(path);
+    }
  
     const handleOnDragEnd = (event:DragEndEvent) => {
         let stageId = event.over?.id as undefined | string | null
@@ -175,7 +184,7 @@ const TasksList = ({children}: React.PropsWithChildren) => {
     )
 }
 
-export default TasksList
+ export default TasksList
 
 const PageSkeleton = () => {
     const column = 6;
