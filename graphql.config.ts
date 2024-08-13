@@ -24,7 +24,8 @@ const config: IGraphQLConfig = {
         },
         "src/graphql/types.ts": {
           preset: "import-types",
-          documents: ["src/**/*.{ts,tsx}"],
+          documents: ["./*.{ts,tsx}"],
+         // documents: ["src/**/*.{ts,tsx}"],
           plugins: ["typescript-operations"],
           config: {
             skipTypename: true,
