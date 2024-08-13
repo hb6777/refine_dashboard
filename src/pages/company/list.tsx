@@ -2,16 +2,24 @@ import CustomAvatar from '@/components/custom-avatar';
 import { Text } from '@/components/text';
 import { COMPANIES_LIST_QUERY } from '@/graphql/queries';
 import { Company } from '@/graphql/schema.types';
+import { CompaniesListQuery } from '@/graphql/types';
 import { currencyNumber } from '@/utilities/currency-number';
 import { FilterOutlined, SearchOutlined } from '@ant-design/icons';
 import { CreateButton, FilterDropdown, List, useTable , EditButton, DeleteButton} from '@refinedev/antd'
-import { getDefaultFilter, useGo } from '@refinedev/core'
+import { getDefaultFilter, HttpError, useGo } from '@refinedev/core'
+import { GetFieldsFromList } from '@refinedev/nestjs-query';
 import { Input, Space, Table } from 'antd';
-import React from 'react'
+import React from 'react' 
 
 export const CompanyList = ({children}:React.PropsWithChildren) => {
 
-  const {tableProps, filters} = useTable({
+  const {tableProps, filters} = useTable 
+  <
+    GetFieldsFromList<CompaniesListQuery>, 
+  HttpError, 
+  GetFieldsFromList<CompaniesListQuery>
+  > 
+  ({
     resource:'companies',
     onSearch: (values) => {
         return [{
@@ -70,7 +78,7 @@ export const CompanyList = ({children}:React.PropsWithChildren) => {
         }}
       >
         <Table.Column<Company>
-          dataIndex='name'
+          dataIndex="name"
           title="Company Title"
           defaultFilteredValue={getDefaultFilter('id', filters)}
           filterIcon={<SearchOutlined />}
