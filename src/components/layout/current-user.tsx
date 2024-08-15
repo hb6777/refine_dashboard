@@ -4,7 +4,7 @@ import   CustomAvatar  from 'components/custom-avatar'
 
 import {User} from "@/graphql/schema.types"
 import { useGetIdentity } from '@refinedev/core'
-import { Text } from '../Text'
+import { Text } from '../text'
 import { useState } from 'react'
 import {AccountSettings} from './account-settings'
 

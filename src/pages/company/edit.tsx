@@ -25,7 +25,7 @@ export const EditCompany = () => {
 
     const { name, avatarUrl } = queryResult?.data?.data || {}
 
-    //console.log(queryResult);
+     // console.log("queryResult",queryResult);
 
     const { selectProps, queryResult: salesQueryResult } = useSelect<GetFieldsFromList<UsersSelectQuery>>({
         resource: 'users',
@@ -36,10 +36,12 @@ export const EditCompany = () => {
         meta: {
             gqlQuery: USERS_SELECT_QUERY
         }
-    })
+    }) 
+    
+   // console.log("salesQueryResult?.data?.data", salesQueryResult?.data?.data);
 
-    const { name: salesName, avatarUrl: salesAvatarUrl } = salesQueryResult?.data?.data || {}
-
+    //const { name: salesName, avatarUrl: salesAvatarUrl } = salesQueryResult?.data?.data || {}
+    
     return (
         <div>
             <Row gutter={[32, 32]}>
@@ -50,9 +52,14 @@ export const EditCompany = () => {
                         breadcrumb={false}
                     >
                        <Text strong>{name}</Text>
+                       {/* <div>
+                       <Text strong>{salesQueryResult?.data?.data[13].name}</Text>
+                       </div> */}
                         ­
                         ­<Form {...formProps} layout='vertical' >
                             <CustomAvatar
+                                // name={getNameInitials(salesQueryResult?.data?.data[13].name || '')}
+                                // src={salesQueryResult?.data?.data[13].avatarUrl}
                                 name={getNameInitials(name || '')}
                                 src={avatarUrl}
                                 shape='square'

@@ -8,7 +8,7 @@ import { Button, Card, Drawer, Form, Input, Spin } from "antd";
 import { getNameInitials } from "@/utilities";
 import { UPDATE_USER_MUTATION } from "@/graphql/mutations";
 
-import { Text } from "../Text"
+import { Text } from "../text"
 import CustomAvatar from "../custom-avatar";
 
 import {
